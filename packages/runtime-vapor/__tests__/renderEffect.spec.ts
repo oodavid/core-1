@@ -242,4 +242,35 @@ describe('renderEffect', () => {
     expect(instanceSnap).toBe(instance)
     expect(scopeSnap).toBe(scope)
   })
+
+  test('should re-queue itself when state mutates during renderEffect run', async () => {
+    const log: number[] = []
+    const count = ref(0)
+
+    createDemo(
+      () => {
+        return { count }
+      },
+      ctx => {
+        renderEffect(() => {
+          const val = ctx.count
+          log.push(val)
+          // synchronously mutate count again during render
+          if (val === 1) {
+            count.value = 2
+          }
+        })
+      },
+    ).render()
+
+    expect(log).toEqual([0])
+    log.length = 0
+
+    // trigger update
+    count.value = 1
+    await nextTick()
+
+    // the effect re-queues and runs again with val=2
+    expect(log).toEqual([1, 2])
+  })
 })
