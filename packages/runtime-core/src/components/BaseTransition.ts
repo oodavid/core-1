@@ -319,6 +319,7 @@ function getLeavingNodesForType(
 }
 
 export interface TransitionHooksContext {
+  isLeaving: () => boolean
   setLeavingNodeCache: (node: any) => void
   unsetLeavingNodeCache: (node: any) => void
   earlyRemove: () => void
@@ -337,6 +338,7 @@ export function resolveTransitionHooks(
   const key = String(vnode.key)
   const leavingVNodesCache = getLeavingNodesForType(state, vnode)
   const context: TransitionHooksContext = {
+    isLeaving: () => leavingVNodesCache[key] === vnode,
     setLeavingNodeCache: () => {
       leavingVNodesCache[key] = vnode
     },
@@ -380,6 +382,7 @@ export function baseResolveTransitionHooks(
   instance: GenericComponentInstance,
 ): TransitionHooks {
   const {
+    isLeaving,
     setLeavingNodeCache,
     unsetLeavingNodeCache,
     earlyRemove,
@@ -449,6 +452,8 @@ export function baseResolveTransitionHooks(
     },
 
     enter(el) {
+      // prevent enter if leave is in progress
+      if (isLeaving()) return
       let hook = onEnter
       let afterHook = onAfterEnter
       let cancelHook = onEnterCancelled

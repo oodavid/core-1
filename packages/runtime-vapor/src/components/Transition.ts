@@ -134,6 +134,7 @@ const getTransitionHooksContext = (
 ) => {
   const { leavingNodes } = state
   const context: TransitionHooksContext = {
+    isLeaving: () => leavingNodes.has(key),
     setLeavingNodeCache: el => {
       leavingNodes.set(key, el)
     },
