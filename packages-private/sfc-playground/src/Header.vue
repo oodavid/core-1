@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { ReplStore } from '@vue/repl'
+import { computed } from 'vue'
 import { downloadProject } from './download/download'
-import Sun from './icons/Sun.vue'
-import Moon from './icons/Moon.vue'
-import Share from './icons/Share.vue'
 import Download from './icons/Download.vue'
 import GitHub from './icons/GitHub.vue'
+import Moon from './icons/Moon.vue'
 import Reload from './icons/Reload.vue'
+import Share from './icons/Share.vue'
+import Sun from './icons/Sun.vue'
 import VersionSelect from './VersionSelect.vue'
 
 const props = defineProps<{
@@ -170,7 +170,6 @@ nav {
   background-color: var(--bg);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
   position: relative;
-  z-index: 999;
   display: flex;
   justify-content: space-between;
 }
