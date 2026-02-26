@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { ReplStore } from '@vue/repl'
 import { computed } from 'vue'
+import type { ReplStore } from '@vue/repl'
 import { downloadProject } from './download/download'
+import Sun from './icons/Sun.vue'
+import Moon from './icons/Moon.vue'
+import Share from './icons/Share.vue'
 import Download from './icons/Download.vue'
 import GitHub from './icons/GitHub.vue'
-import Moon from './icons/Moon.vue'
 import Reload from './icons/Reload.vue'
-import Share from './icons/Share.vue'
-import Sun from './icons/Sun.vue'
 import VersionSelect from './VersionSelect.vue'
 
 const props = defineProps<{
